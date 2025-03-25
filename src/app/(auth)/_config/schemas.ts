@@ -15,28 +15,25 @@ const combinedFormSchema = z
     mobile: z
       .string()
       .regex(/^\+?[1-9]\d{1,14}$/, "Invalid mobile number")
-      .min(1, "Mobile is required"),
+      .min(10, "Mobile is required"),
 
     // Step 2 Fields
     street_address: z.string().min(1, "Street address is required"),
     city: z.string().min(1, "City is required"),
-    zip_code: z
-      .string()
-      .min(1, "Zip code is required")
-      .regex(/^\d{5}$/, "Invalid zip code"),
+    zip_code: z.string().min(5, "Zip code is required"),
 
     // Step 3 Fields
     user_name: z
       .string()
-      .min(1, "Username is required")
+      .min(4, "Username is required")
       .max(30, "Username must be under 30 characters"),
     password: z
       .string()
-      .min(8, "Password must be at least 8 characters")
+      .min(6, "Password must be at least 6 characters")
       .max(50, "Password must be under 50 characters"),
     confirm_password: z
       .string()
-      .min(8, "Confirm Password must be at least 8 characters")
+      .min(6, "Confirm Password must be at least 6 characters")
       .max(50, "Confirm Password must be under 50 characters"),
   })
   .superRefine((data, ctx) => {
