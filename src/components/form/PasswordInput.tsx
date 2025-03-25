@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { X, Info, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 export type PasswordInputProps = {
   label?: string;
@@ -22,13 +22,10 @@ const PasswordInput = ({
   disabled = false,
   hidden = false,
   autoFocus = false,
-  clearable = true,
   successMessage,
 }: PasswordInputProps) => {
   // Accessing form context from react-hook-form
-  const { control, setValue, trigger } = useFormContext();
-
-  const [isFocused, setIsFocused] = useState(false);
+  const { control, trigger } = useFormContext();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -56,6 +53,14 @@ const PasswordInput = ({
             <input
               {...field}
               id={name}
+              value={field.value ? field.value : ""}
+              onChange={(e) => {
+                field.onChange(e);
+                trigger(name);
+              }}
+              onBlur={() => {
+                trigger(name);
+              }}
               type={showPassword ? "text" : "password"}
               hidden={hidden}
               disabled={disabled}
@@ -63,15 +68,13 @@ const PasswordInput = ({
               placeholder={placeholder}
               autoFocus={autoFocus}
               autoComplete="new-password"
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
               className={`
                 w-full px-3 py-2 border rounded-md pr-12
                 transition-all duration-200 ease-in-out
                 outline-none focus:outline-none
                 ${
                   error
-                    ? "border-red-500 focus:ring-2 focus:ring-red-500"
+                    ? "border-red-500 focus:ring-2 focus:ring-red-300 focus:ring-offset-1"
                     : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                 }
                 ${
@@ -90,7 +93,7 @@ const PasswordInput = ({
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="text-gray-500 hover:text-gray-700 focus:outline-none"
+                  className="text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -99,23 +102,6 @@ const PasswordInput = ({
                     <Eye className="w-5 h-5" />
                   )}
                 </button>
-              )}
-
-              {/* Clear input or error icon */}
-              {(clearable || error) && (
-                <>
-                  {error ? (
-                    <Info className="w-5 h-5 text-red-500" />
-                  ) : field.value && isFocused ? (
-                    <X
-                      onClick={() => {
-                        setValue(name, "");
-                        trigger(name);
-                      }}
-                      className="w-5 h-5 text-gray-400 cursor-pointer hover:text-gray-600"
-                    />
-                  ) : null}
-                </>
               )}
             </div>
           </div>

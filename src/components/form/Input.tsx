@@ -52,8 +52,11 @@ const Input = ({
           <div className="relative">
             <input
               {...field}
-              value={field.value}
-              onChange={(e) => field.onChange(e)}
+              value={field.value ? field.value : ""}
+              onChange={(e) => {
+                field.onChange(e);
+                trigger(name);
+              }}
               id={name}
               type={type}
               hidden={hidden}
@@ -63,14 +66,17 @@ const Input = ({
               autoFocus={autoFocus}
               autoComplete="off"
               onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
+              onBlur={() => {
+                setIsFocused(false);
+                trigger(name);
+              }}
               className={`
                 w-full px-3 py-2 border rounded-md 
                 transition-all duration-200 ease-in-out
                 outline-none focus:outline-none
                 ${
                   error
-                    ? "border-red-500 focus:ring-2 focus:ring-red-500"
+                    ? "border-red-500 focus:ring-2 focus:ring-red-300 focus:ring-offset-1"
                     : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
                 }
                 ${
@@ -101,7 +107,7 @@ const Input = ({
           </div>
 
           {/* Error or Success Message */}
-          {error?.message ? (
+          {error ? (
             <p className="mt-1 text-sm text-red-500">{error.message}</p>
           ) : successMessage ? (
             <p className="mt-1 text-sm text-green-500">{successMessage}</p>
