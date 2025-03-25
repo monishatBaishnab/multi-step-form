@@ -41,7 +41,7 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 h-screen w-full flex items-center justify-center">
+    <div className="bg-gray-50 dark:bg-gray-900 py-10 min-h-screen w-full flex items-center justify-center">
       <div className="w-full sm:w-[600px] mx-auto bg-white dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700 rounded-lg space-y-4">
         <div className="border-b pb-5 border-gray-200 dark:border-gray-600 flex items-center justify-between">
           <h3 className="text-2xl font-semibold dark:text-white">
