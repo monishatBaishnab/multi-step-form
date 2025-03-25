@@ -4,27 +4,32 @@ import {
   useForm,
   Resolver,
   UseFormReset,
-  FieldValues,
   DefaultValues,
+  FieldValues,
 } from "react-hook-form";
 
-interface FormProps {
-  onSubmit: (data: FieldValues, reset: UseFormReset<FieldValues>) => void;
-  defaultValues?: DefaultValues<FieldValues>;
-  resolver?: Resolver<FieldValues>;
+interface FormProps<T extends FieldValues> {
+  onSubmit: (data: T, reset: UseFormReset<T>) => void;
+  defaultValues?: DefaultValues<T>;
+  resolver?: Resolver<T>;
   children: ReactNode;
 }
 
-const Form = ({ onSubmit, defaultValues, resolver, children }: FormProps) => {
+const Form = <T extends FieldValues>({
+  onSubmit,
+  defaultValues,
+  resolver,
+  children,
+}: FormProps<T>) => {
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  // Use the correct type for useForm configuration
-  const methods = useForm<FieldValues>({
+  // Ensure the methods object is typed correctly
+  const methods = useForm<T>({
     ...(defaultValues ? { defaultValues } : {}),
     ...(resolver ? { resolver } : {}),
   });
 
-  const onFormSubmit = async (data: FieldValues) => {
+  const onFormSubmit = async (data: T) => {
     await onSubmit(data, methods.reset);
   };
 
@@ -32,8 +37,7 @@ const Form = ({ onSubmit, defaultValues, resolver, children }: FormProps) => {
     if (defaultValues) {
       methods.reset(defaultValues);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValues]);
+  }, [defaultValues, methods]);
 
   return (
     <FormProvider {...methods}>

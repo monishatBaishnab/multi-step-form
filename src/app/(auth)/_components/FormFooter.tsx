@@ -12,10 +12,15 @@ const FormFooter = ({
   setCurrentStep: Dispatch<SetStateAction<number>>;
 }) => {
   const { trigger } = useFormContext(); // Access formState and trigger validation
-
+  const names =
+    currentStep == 1
+      ? ["name", "email", "mobile"]
+      : currentStep === 2
+      ? ["street_address", "city", "zip_code"]
+      : ["user_name", "confirm_password", "password"];
   const handleNext = async () => {
     // Trigger validation for the current step before moving to the next step
-    const isValid = await trigger(); // This will trigger validation for all fields
+    const isValid = await trigger(names); // This will trigger validation for all fields
     if (isValid) {
       if (currentStep < steps.length && currentStep !== steps?.length) {
         setTimeout(() => {

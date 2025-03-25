@@ -2,14 +2,16 @@
 
 import Form from "@/components/form/Form";
 import Input from "@/components/form/Input";
-import { FieldValues, UseFormReset } from "react-hook-form";
+import { UseFormReset } from "react-hook-form";
 import { useState } from "react";
 import PasswordInput from "@/components/form/PasswordInput";
-import { validationSchemas } from "./_config/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormFooter from "./_components/FormFooter";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import combinedFormSchema, { FormValues } from "./_config/schemas";
+import { toast } from "sonner";
+import FinalReview from "./_components/FinalReview";
 
 const Home = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -22,22 +24,21 @@ const Home = () => {
 
   const [register] = useRegisterMutation();
 
-  const handleSubmit = (
-    data: FieldValues,
-    reset: UseFormReset<FieldValues>,
+  const handleSubmit = async (
+    data: FormValues,
+    reset: UseFormReset<FormValues>,
   ) => {
     console.log(data);
     try {
-      const result = register({ data });
+      const result = await register({ data });
       console.log(result);
     } catch (error) {
       console.log(error);
     }
     reset();
     setCurrentStep(1);
+    toast("User Registered Successfully.");
   };
-
-  const schema = validationSchemas[currentStep];
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 h-screen w-full flex items-center justify-center">
@@ -56,7 +57,10 @@ const Home = () => {
             {stepsTitle[currentStep - 1]}
           </h4>
         </div>
-        <Form onSubmit={handleSubmit} resolver={zodResolver(schema)}>
+        <Form<FormValues>
+          onSubmit={handleSubmit}
+          resolver={zodResolver(combinedFormSchema)}
+        >
           <div className="space-y-4">
             <div className="space-y-2">
               {currentStep === 1 && (
@@ -124,6 +128,7 @@ const Home = () => {
               steps={steps}
             />
           </div>
+          <div>{currentStep === 3 && <FinalReview />}</div>
         </Form>
       </div>
     </div>
