@@ -42,7 +42,7 @@ const PasswordInput = ({
             <label
               htmlFor={name}
               className={`block text-sm font-medium ${
-                error ? "text-red-500" : "text-gray-700"
+                error ? "text-red-500" : "text-gray-700 dark:text-gray-300"
               }`}
             >
               {label} {required && <span className="text-red-500">*</span>}
@@ -68,22 +68,15 @@ const PasswordInput = ({
               placeholder={placeholder}
               autoFocus={autoFocus}
               autoComplete="new-password"
-              className={`
-                w-full px-3 py-2 border rounded-md pr-12
-                transition-all duration-200 ease-in-out
-                outline-none focus:outline-none
-                ${
-                  error
-                    ? "border-red-500 focus:ring-2 focus:ring-red-300 focus:ring-offset-1"
-                    : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                }
-                ${
-                  disabled
-                    ? "bg-gray-100 cursor-not-allowed text-gray-500"
-                    : "bg-white"
-                }
-                placeholder-gray-400
-              `}
+              className={`w-full px-3 py-2 border rounded-md transition-all duration-200 ease-in-out outline-none focus:outline-none ${
+                error
+                  ? "border-red-500 focus:ring-2 focus:ring-red-300 focus:ring-offset-1"
+                  : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+              } ${
+                disabled
+                  ? "bg-gray-100 cursor-not-allowed text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+                  : "bg-white dark:bg-gray-800 dark:text-white"
+              } placeholder-gray-400 dark:placeholder-gray-500`}
             />
 
             {/* Right section icons */}

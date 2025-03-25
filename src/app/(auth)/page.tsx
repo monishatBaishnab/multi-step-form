@@ -2,13 +2,13 @@
 
 import Form from "@/components/form/Form";
 import Input from "@/components/form/Input";
-import { FieldValues } from "react-hook-form";
-import Stepper from "./_components/Stepper";
+import { FieldValues, UseFormReset } from "react-hook-form";
 import { useState } from "react";
 import PasswordInput from "@/components/form/PasswordInput";
 import { validationSchemas } from "./_config/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormFooter from "./_components/FormFooter";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const Home = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -19,23 +19,29 @@ const Home = () => {
     "Account Setup",
   ];
 
-  const handleSubmit = (data: FieldValues) => {
+  const handleSubmit = (
+    data: FieldValues,
+    reset: UseFormReset<FieldValues>,
+  ) => {
     console.log(data);
+    reset();
+    setCurrentStep(1);
   };
 
   const schema = validationSchemas[currentStep];
-  
+
   return (
-    <div className="bg-gray-50 h-screen w-full flex items-center justify-center">
-      <div className="w-full sm:w-xl mx-auto bg-white p-5 border border-gray-100 rounded-lg space-y-4">
-        <div className="border-b border-gray-200">
-          <Stepper steps={steps} currentStep={currentStep} />
+    <div className="bg-gray-50 dark:bg-gray-900 h-screen w-full flex items-center justify-center">
+      <div className="w-full sm:w-[600px] mx-auto bg-white dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700 rounded-lg space-y-4">
+        <div className="border-b pb-5 border-gray-200 dark:border-gray-600 flex items-center justify-between">
+          <h3 className="text-2xl font-semibold dark:text-white">Register new account.</h3>
+          <ThemeToggle />
         </div>
         <div>
-          <div className="text-blue-500 text-sm bg-blue-100 inline-block px-2 py-0.5 rounded-lg border border-blue-200">
+          <div className="text-blue-500 dark:text-blue-400 text-sm bg-blue-100 dark:bg-blue-800 inline-block px-2 py-0.5 rounded-lg border border-blue-200 dark:border-blue-700">
             Step {currentStep}/{steps.length}
           </div>
-          <h4 className="text-lg font-semibold text-gray-700">
+          <h4 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
             {stepsTitle[currentStep - 1]}
           </h4>
         </div>
@@ -101,7 +107,11 @@ const Home = () => {
               )}
             </div>
 
-           <FormFooter currentStep={currentStep} setCurrentStep={setCurrentStep} steps={steps} />
+            <FormFooter
+              currentStep={currentStep}
+              setCurrentStep={setCurrentStep}
+              steps={steps}
+            />
           </div>
         </Form>
       </div>
