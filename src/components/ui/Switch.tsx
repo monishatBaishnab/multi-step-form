@@ -1,12 +1,16 @@
 // Switch.js
-import React, { useState } from "react";
+import React from "react";
 
-const Switch = ({ onChange }: { onChange: () => void }) => {
+const Switch = ({
+  onChange,
+  isDark,
+}: {
+  onChange: () => void;
+  isDark: boolean;
+}) => {
   // State to control the switch
-  const [isOn, setIsOn] = useState(false);
 
   const handleToggle = () => {
-    setIsOn(!isOn);
     onChange();
   };
 
@@ -18,19 +22,19 @@ const Switch = ({ onChange }: { onChange: () => void }) => {
           type="checkbox"
           id="switch"
           className="sr-only"
-          checked={isOn}
+          checked={isDark}
           onChange={handleToggle}
         />
         {/* Switch Background */}
         <div
           className={`w-14 h-7 bg-gray-300 rounded-full p-1 transition-colors duration-300 ${
-            isOn ? "!bg-blue-500" : "bg-gray-300"
+            isDark ? "!bg-blue-500" : "bg-gray-300"
           }`}
         >
           {/* Switch Knob */}
           <div
             className={`size-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-              isOn ? "translate-x-7" : ""
+              isDark ? "translate-x-7" : ""
             }`}
           ></div>
         </div>

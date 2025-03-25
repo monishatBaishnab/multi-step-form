@@ -24,7 +24,7 @@ const ThemeToggle = () => {
     localStorage.setItem("theme", newTheme);
   };
 
-  return <Switch onChange={toggleTheme} />;
+  return <Switch isDark={isDark} onChange={toggleTheme} />;
 };
 
 export default ThemeToggle;

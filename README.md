@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Multi-Step Form with Validation
 
-First, run the development server:
+This project is a multi-step form created using Next.js (App Router), React Hook Form, Zod for validation, and TailwindCSS for styling. It includes step-by-step validation and local state management to simulate an end-to-end form submission process.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features:
+- Multi-step form with personal info, address details, and account setup.
+- Zod for schema validation.
+- State management with `React Hook Form`.
+- Error messages shown under each field on validation failure.
+- "Next" and "Previous" buttons to navigate between steps.
+- React Query/RTK Query integration for API simulation.
+- Dark mode support with TailwindCSS.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Requirements:
+- Node.js (v16 or higher)
+- npm or yarn
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Steps to Run:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/monishatBaishnab/multi-step-form
+   cd multi-step-form
+   ```
 
-## Learn More
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Visit `http://localhost:3000` in your browser to view the form.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Key Steps for the User:
+1. **Clone the GitHub repository** using `git clone https://github.com/monishatBaishnab/multi-step-form`.
+2. **Install the required dependencies** with `npm install`.
+3. **Run the development server** using `npm run dev`.

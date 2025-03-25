@@ -22,8 +22,8 @@ const Button = ({
       className={clsx(
         "outline-none cursor-pointer flex items-center gap-2 justify-center rounded-md font-semibold transition-colors duration-200",
         "active:not-disabled:translate-y-[1px] disabled:opacity-70 disabled:cursor-auto",
-        variant === "primary" && "bg-blue-500 text-white hover:bg-blue-600/90",
-        variant === "secondary" && "bg-gray-200 text-gray-700 hover:bg-gray-300/80",
+        variant === "primary" && "bg-blue-500 text-white hover:bg-blue-600/90 disabled:hover:bg-blue-500",
+        variant === "secondary" && "bg-gray-200 text-gray-700 hover:bg-gray-300/80 disabled:hover:bg-gray-200",
         size === "sm" && "px-3 py-1 text-sm",
         size === "md" && "px-5 py-1.5 text-base", // Default medium size
         size === "lg" && "px-6 py-2 text-lg",

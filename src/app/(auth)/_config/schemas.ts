@@ -33,11 +33,11 @@ const step3Schema = z
       .max(30, "Username must be under 30 characters"),
     password: z
       .string()
-      .min(8, "Password must be at least 8 characters")
+      .min(6, "Password must be at least 8 characters")
       .max(50, "Password must be under 50 characters"),
     confirm_password: z
       .string()
-      .min(8, "Confirm Password must be at least 8 characters")
+      .min(6, "Confirm Password must be at least 8 characters")
       .max(50, "Confirm Password must be under 50 characters"),
   })
   .refine((data) => data.password === data.confirm_password, {
